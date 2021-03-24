@@ -21,6 +21,7 @@ const tokenClassNames = {
 
 module.exports = withBundleAnalyzer({
   pageExtensions: ['js', 'jsx', 'mdx'],
+  basePath: '/blog',
   experimental: {
     modern: true,
   },

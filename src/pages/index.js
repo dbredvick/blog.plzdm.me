@@ -13,25 +13,31 @@ export default function Home() {
     <div className="divide-y divide-gray-200">
       <Head>
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@tailwindcss" />
-        <meta name="twitter:creator" content="@tailwindcss" />
-        <meta name="twitter:title" content="Blog – Tailwind CSS" />
-        <meta name="twitter:description" content="News content from the Tailwind CSS team." />
-        <meta name="twitter:image" content={`https://blog.tailwindcss.com${twitterCard}`} />
-        <meta property="og:url" content="https://blog.tailwindcss.com" />
+        {/* <meta name="twitter:site" content="@tailwindcss" />
+        <meta name="twitter:creator" content="@tailwindcss" /> */}
+        <meta name="twitter:title" content="PlzDM.me" />
+        <meta
+          name="twitter:description"
+          content="You are missing out on opportunities in your DMs."
+        />
+        <meta name="twitter:image" content={`https://plzdm.me/blog${twitterCard}`} />
+        <meta property="og:url" content="https://plzdm.me/blog" />
         <meta property="og:type" content="article" />
-        <meta property="og:title" content="Blog – Tailwind CSS" />
-        <meta property="og:description" content="News content from the Tailwind CSS team." />
-        <meta property="og:image" content={`https://blog.tailwindcss.com${twitterCard}`} />
-        <title>Blog – Tailwind CSS</title>
-        <meta name="description" content="News content from the Tailwind CSS team." />
+        <meta property="og:title" content="Blog – PlzDM.me" />
+        <meta
+          property="og:description"
+          content="You are missing out on opportunities in your DMs."
+        />
+        <meta property="og:image" content={`https://plzdm.me/blog${twitterCard}`} />
+        <title>Blog – PlzDM.me</title>
+        <meta name="description" content="You are missing out on opportunities in your DMs." />
       </Head>
       <div className="pt-6 pb-8 space-y-2 md:space-y-5">
         <h1 className="text-3xl leading-9 font-extrabold text-gray-900 tracking-tight sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
-          Latest
+          Get the most out of DMs
         </h1>
         <p className="text-lg leading-7 text-gray-500">
-          All the latest Tailwind CSS news, straight from the team.
+          Guides to maximizing your Twitter experience and using your DMs like a pro.
         </p>
       </div>
       <ul className="divide-y divide-gray-200">
