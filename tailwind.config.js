@@ -31,15 +31,16 @@ module.exports = {
         '9/16': '56.25%',
       },
       lineHeight: {
-        '11': '2.75rem',
-        '12': '3rem',
-        '13': '3.25rem',
-        '14': '3.5rem',
+        11: '2.75rem',
+        12: '3rem',
+        13: '3.25rem',
+        14: '3.5rem',
       },
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
       colors: {
+        cyan: '#22b8cf',
         code: {
           green: '#b5f4a5',
           yellow: '#ffe484',
@@ -83,6 +84,7 @@ module.exports = {
               color: theme('colors.gray.900'),
               borderLeftColor: theme('colors.gray.200'),
             },
+            'div.noprose': false,
           },
         },
       }),

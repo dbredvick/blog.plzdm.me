@@ -1,0 +1,192 @@
+import { dbredvick } from '@/authors'
+import Signup from '@/components/Signup'
+
+export const meta = {
+  title: 'How to declare Twitter DM bankruptcy',
+  description: `Look, we get it. You have too many messages and it's easier to lock down your DMs than respond to all of them. But is that the solution?`,
+  date: '2021-03-24T18:05:31Z',
+  authors: [dbredvick],
+  footer: `<div>
+  <script
+    async
+    data-uid="445ddb2813"
+    src="https://drewdottech.ck.page/445ddb2813/index.js"
+  ></script>
+</div>`,
+}
+
+Look, we get it. You have too many messages and it's easier to lock down your DMs than respond to all of them. But is that the solution?
+
+<!--more-->
+
+## Why declare DM bankruptcy
+
+<div>
+  <blockquote class="twitter-tweet">
+    <p lang="en" dir="ltr">
+      I have so many unread DMs from the past week or so that I am officially declaring DM
+      bankruptcy.
+      <br />
+      <br />
+      I&#39;m sorry if I missed your DM. I promise it was nothing personal.
+      <br />
+      <br />
+      The good news is I do actually check my email and have a public email where I&#39;m easier to
+      access: <br />
+      <br />
+      ✉️kelly@hey.com <a href="https://t.co/EgbmM1xctR">pic.twitter.com/EgbmM1xctR</a>
+    </p>
+    &mdash; Kelly Vaughn 🐞 (@kvlly) <a href="https://twitter.com/kvlly/status/1369049078152232963?ref_src=twsrc%5Etfw">March 8, 2021</a>
+  </blockquote>{' '}
+</div>
+
+First off, congrats! You are popular on Twitter, popular enough to get a lot of the benefits that come from having a larger audience.
+
+You can ask questions out into a void and actually get responses. When you tweet out a link to a project you're working on, people _actually_ give you feedback. Amazing!
+
+**But what about the downsides?**
+
+Well, first off — sorry about the reply-guys. We can't fix those.
+
+The Twitter DM UX is not great, but you probably already knew that. But on the bright side, some of the DMs you get are super awesome. Thoughtful internet strangers are the best type of stranger.
+
+So how do you handle the bad DM UX?
+
+One option is to declare DM bankruptcy and funnel all well-meaning followers to contact you via email. Even though your email is still public, this extra step often stops most junk but allows for incoming messages if the sender cares enough.
+
+Decided you want to declare DM bankruptcy? Okay, let's get started.
+
+## The steps
+
+### 1. Write a tweet
+
+Filing for Twitter bankruptcy is considerably easier than the real thing. First, write a tweet as Kelly did above, letting your followers know that you won't be responding to their DMs.
+
+**Be sure to include your email.** Bonus points for using an email provider like [Hey.com](https://www.hey.com), which lets you control who can and cannot message you.
+
+### 2. Pin your bankruptcy tweet
+
+Next, pin your bankruptcy tweet to your Twitter profile. Only a fraction of your followers see the bankruptcy tweet when you post it, so pinning it to your profile is important to keep all your followers in the loop.
+
+### 3. Create an automated DM with Twitter's API (optional)
+
+Okay, so now we're getting into the really cool part. This is the problem [PlzDM.me](https://plzdm.me) solves, but I'm going to show you how to do it using Twitter's API instead.
+
+#### First, what's a Twitter welcome message?
+
+So Twitter created welcome messages to help brands deal with the large influx of DMs they get. They just never rolled it out to you and me.
+
+_But, it's in their API docs._
+
+Let's use it.
+
+#### Set up Twurl
+
+[Twurl](https://github.com/twitter/twurl) is a lot like `curl`, except it's specifically for querying the Twitter API. Configure it once for auth and you're good to go.
+
+Okay, so we're going to be using RubyGems to install Twurl.
+
+First, run:
+
+```ruby
+gem install twurl
+```
+
+#### Apply for Twitter developer access
+
+The next step is to apply for access to the API. Do that here: [https://developer.twitter.com/en/apply-for-access
+](https://developer.twitter.com/en/apply-for-access)
+
+#### Generate tokens
+
+After you've been accepted (which should happen rather quickly), you'll need to generate and set up your tokens for Twurl.
+
+To do that, head to the portal here: [https://developer.twitter.com/en/portal/projects-and-apps](https://developer.twitter.com/en/portal/projects-and-apps).
+
+<img src="https://blog.plzdm.me/twitter-dev-portal-standalone-apps.png" alt="" />
+
+I've already got a few apps, but this section will be empty for you. **Click the "Create App" button.**
+
+Name that app whatever you're feeling like (but it does have to be unique globally).
+
+#### Authorize Twurl
+
+Next, you need to configure Twurl to pass your secrets that you just created on the last step, like this:
+
+```bash
+twurl authorize --consumer-key key       \
+                --consumer-secret secret
+```
+
+Test out Twurl to be sure it's working:
+
+```bash
+twurl /1.1/statuses/home_timeline.json
+```
+
+#### Create your welcome message
+
+Now that we're configured, let's start creating your automated welcome message.
+
+Head over to [the Twitter docs](https://developer.twitter.com/en/docs/twitter-api/v1/direct-messages/welcome-messages/api-reference/new-welcome-message) if you'd like a more detailed explanation of what we're doing.
+
+Each page of Twitter API documentation normally comes with a copy-and-paste ready Twurl example.
+
+```bash
+twurl -A 'Content-type: application/json' /1.1/direct_messages/welcome_messages/new.json -d '{"name": "simple_welcome-message 01", "welcome_message": {"message_data": {"text": "Your welcome message goes here!"}}}'
+```
+
+The response should look something like this:
+
+```json
+{
+  "welcome_message": {
+    "id": "1375945329892278289",
+    "created_timestamp": "1616885905131",
+    "message_data": {
+      "text": "Your welcome message goes here!",
+      "entities": {
+        "hashtags": [],
+        "symbols": [],
+        "user_mentions": [],
+        "urls": []
+      }
+    },
+    "source_app_id": "19958039"
+  },
+  "apps": {
+    "19958039": {
+      "id": "19958039",
+      "name": "Twurl Drew Local"
+    }
+  }
+}
+```
+
+After you create it, be sure to take note of the welcome message `id`, you'll need this later.
+
+#### Creating a welcome message rule
+
+Welcome message rules are what makes Twitter automatically show someone a welcome message when they message you for the first time.
+
+Be sure to use the `id` from the last step.
+
+```bash
+twurl -A 'Content-type: application/json' -X POST /1.1/direct_messages/welcome_messages/rules/new.json -d '{"welcome_message_rule": {"welcome_message_id": "YOUR_ID_FROM_LAST_STEP"}}'
+```
+
+Now when someone new messages you, they'll see this message automatically directing them to email you instead. Now you don't have to use that precious pinned tweet space to inform people you're not checking your DMs!
+
+<img src="https://blog.plzdm.me/welcome-message.gif" alt="" />
+
+## Is there an easier option?
+
+There totally is, in fact — I've been building it.
+
+We're building PlzDM.me to help make declaring [Twitter bankruptcy](https://plzdm.me/) as easy as possible.
+
+The ability to create Twitter welcome messages is on our free tier.
+
+**Sign up below if you're interested in testing it out**.
+
+<img className="self-center" src="https://blog.plzdm.me/glad-you-asked.jpeg" alt="" />

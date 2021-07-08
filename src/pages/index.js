@@ -20,7 +20,6 @@ export default function Home() {
           name="twitter:description"
           content="You are missing out on opportunities in your DMs."
         />
-        <meta name="twitter:image" content={`https://plzdm.me/blog${twitterCard}`} />
         <meta property="og:url" content="https://plzdm.me/blog" />
         <meta property="og:type" content="article" />
         <meta property="og:title" content="Blog – PlzDM.me" />
@@ -28,7 +27,6 @@ export default function Home() {
           property="og:description"
           content="You are missing out on opportunities in your DMs."
         />
-        <meta property="og:image" content={`https://plzdm.me/blog${twitterCard}`} />
         <title>Blog – PlzDM.me</title>
         <meta name="description" content="You are missing out on opportunities in your DMs." />
       </Head>
